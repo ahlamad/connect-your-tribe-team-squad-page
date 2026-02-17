@@ -3,42 +3,45 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Squadpage {{ teamName }}</title>
     <link rel="stylesheet" href="/styles/style.css">
   </head>
 
-  <header>
-    <a href="/">  
-      <h1> {{ teamName }}✨</h1>
-    </a>
-  </header>
-  
   <body>
-  <main>
-    <form id="filters">
-      <button type="button">A - Z</button>
+    <header>
+      <a href="/">  
+        <h1> {{ teamName }}✨</h1>
+      </a>
+    </header>
+  
+    <main>
+      <form id="filters">
+        <button type="button">A - Z</button>
 
-      <label for="age" class="sr-only">Age</label>
-      <input type="number" placeholder="Age" class="button-lookalike">
+        <label class="sr-only">Age</label>
+        <input type="number" placeholder="Age" class="button-lookalike">
 
-      <label for="city" class="sr-only">City</label>
-      <input type="text" placeholder="City" class="button-lookalike">
+        <label class="sr-only">City</label>
+        <input type="text" placeholder="City" class="button-lookalike">
 
-      <select name="squad">
-        <option value="all">All Squads</option>
-        <option value="squad-1i">Squad 1I</option>
-        <option value="squad-1j">Squad 1J</option>
-      </select>
-    </form>
+        <select name="squad">
+          <option value="all">All Squads</option>
+          <option value="squad-1i">Squad 1I</option>
+          <option value="squad-1j">Squad 1J</option>
+        </select>
+      </form>
 
-    <section class="person-card-info">
-      <button type="button">🗙</button>
-      <button type="button">🩷</button>
-      <figure>
+      <section class="person-card-info">
+        <button type="button">🗙</button>
+        <button type="button">🩷</button>
+
+        <figure>
           <img src="https://fdnd.directus.app/assets/{{ person.mugshot }}?width=500" alt="Profile picture">
-          <figcaption>Ahlam{{ person.name }}</figcaption>
-          <p>12 likes</p>
-      </figure>
+          <figcaption>
+            Ahlam{{ person.name }}
+            <span class="likes">12 likes</span>
+          </figcaption>
+        </figure>
 
       <h2>Current comments:</h2>
 
@@ -70,11 +73,9 @@
      {% comment %} <h3>Squads</h3>
       <ul>
         {% for squad in squads %}
-          <ul>
             <li>
               Squad {{ squad.name }}
             </li>
-          </ul>
         {% endfor %}
       </ul> {% endcomment %}
     </footer>
