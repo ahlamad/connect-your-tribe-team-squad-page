@@ -162,6 +162,15 @@ textarea {
   border: 1px solid #ddd;
 }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
 button[type="submit"] {
   margin-top: 0.5rem;
   padding: 0.6rem;
