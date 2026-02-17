@@ -1,9 +1,185 @@
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    overflow: hidden;
-    border: 0;
+/* ===== Reset ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #ffdee9, #b5fffc);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Header ===== */
+header {
+  text-align: center;
+  padding: 1.5rem;
+  background: white;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+header h1 {
+  font-size: 1.8rem;
+}
+
+/* ===== Filter Bar ===== */
+#filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+#filters button,
+#filters input,
+#filters select {
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: none;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+#filters button:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== Card Container ===== */
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* ===== Tinder Card ===== */
+.person-card-info {
+  width: 350px;
+  max-width: 90%;
+  background: white;
+  border-radius: 25px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+
+  /* 🔥 Favorite color border */
+  border: 6px solid var(--favorite-color, #ff4d6d);
+
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Swipe animations */
+.person-card-info.swipe-left {
+  transform: translateX(-500px) rotate(-20deg);
+  opacity: 0;
+}
+
+.person-card-info.swipe-right {
+  transform: translateX(500px) rotate(20deg);
+  opacity: 0;
+}
+
+/* ===== Profile Image ===== */
+figure img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+figcaption {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+figure p {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* ===== Like / Dislike Buttons ===== */
+.person-card-info > button {
+  position: absolute;
+  bottom: -30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  transition: 0.2s ease;
+}
+
+.person-card-info > button:first-of-type {
+  left: 40px;
+  background: white;
+  color: red;
+}
+
+.person-card-info > button:last-of-type {
+  right: 40px;
+  background: white;
+  color: #ff4d6d;
+}
+
+.person-card-info > button:hover {
+  transform: scale(1.2);
+}
+
+/* ===== Comments Section ===== */
+.person-card-info h2 {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+}
+
+.person-card-info p {
+  font-size: 0.85rem;
+  margin: 0.4rem 0;
+}
+
+/* ===== Form ===== */
+form[method="post"] {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+input,
+textarea {
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+button[type="submit"] {
+  margin-top: 0.5rem;
+  padding: 0.6rem;
+  border-radius: 999px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background: #ff2e63;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .person-card-info {
+    width: 95%;
+  }
+}
