@@ -15,7 +15,7 @@
     </header>
   
     <main>
-      <form id="filters">
+      <form id="filters" method="get">
         <button type="button">A - Z</button>
 
         <label class="sr-only">Age</label>
@@ -26,9 +26,11 @@
 
         <select name="squad">
           <option value="all">All Squads</option>
-          <option value="squad-1i">Squad 1I</option>
-          <option value="squad-1j">Squad 1J</option>
+          <option value="1I">Squad 1I</option>
+          <option value="1J">Squad 1J</option>
         </select>
+        
+        <button type="submit">Filter</button>
       </form>
 
       <ul class="squad-members">

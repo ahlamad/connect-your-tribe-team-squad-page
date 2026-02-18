@@ -20,41 +20,37 @@ app.use(express.urlencoded({extended: true}))
 
 // ROUTE VOOR ALLE SQUADMEMBERS
 app.get('/', async function (request, response) {
+  console.log(request.query)
 
-  // Haal alle personen uit de WHOIS API op, van dit jaar, gesorteerd op naam
-  const params = {
-    // Sorteer op naam
+  // 
+  const chosenSquad = request.query.squad
+  const personParams = {
     'sort': 'name',
 
     // Geef aan welke data je per persoon wil terugkrijgen
     'fields': '*,squads.*',
-
-    // Combineer meerdere filters
     'filter[squads][squad_id][tribe][name]': 'FDND Jaar 1',
-    // Filter eventueel alleen op een bepaalde squad
-    // 'filter[squads][squad_id][name]': '1I',
-    // 'filter[squads][squad_id][name]': '1J',
     'filter[squads][squad_id][cohort]': '2526'
   }
-  const personResponse = await fetch('https://fdnd.directus.app/items/person/?' + new URLSearchParams(params))
 
-  // En haal daarvan de JSON op
+    if (chosenSquad && chosenSquad !== 'all') {
+  personParams['filter[squads][squad_id][name]'] = chosenSquad
+}
+
+  const personResponse = await fetch('https://fdnd.directus.app/items/person/?' + new URLSearchParams(personParams))
+
   const personResponseJSON = await personResponse.json()
 
-  response.render('index.liquid', {persons: personResponseJSON.data})
-})
-
-app.get('/', async function (request, response) {
 
   // Filter eerst de berichten die je wilt zien, net als bij personen
   // Deze tabel wordt gedeeld door iedereen, dus verzin zelf een handig filter,
   // bijvoorbeeld je teamnaam, je projectnaam, je person ID, de datum van vandaag, etc..
-  const params = {
+  const messageParams = {
     'filter[for]': `Team ${teamName}`,
   }
 
   // Maak hiermee de URL aan, zoals we dat ook in de browser deden
-  const apiURL = 'https://fdnd.directus.app/items/messages?' + new URLSearchParams(params)
+  const apiURL = 'https://fdnd.directus.app/items/messages?' + new URLSearchParams(messageParams)
 
   // Laat eventueel zien wat de filter URL is
   // (Let op: dit is _niet_ de console van je browser, maar van NodeJS, in je terminal)
@@ -69,8 +65,8 @@ app.get('/', async function (request, response) {
   // Controleer eventueel de data in je console
   // console.log(messagesResponseJSON)
 
-  // En render de view met de messages
   response.render('index.liquid', {
+    persons: personResponseJSON.data,
     teamName: teamName,
     messages: messagesResponseJSON.data
   })
@@ -133,7 +129,6 @@ app.get('/oplopend-alfabetische-volgorde', async function (request, response) {
   // Render pagina
   response.render('index.liquid', {
     persons: personResponseJSON.data,
-    squads: squadResponseJSON.data
   })
 
 })
