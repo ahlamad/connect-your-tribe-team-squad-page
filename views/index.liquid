@@ -31,6 +31,9 @@
         </select>
       </form>
 
+      <ul class="squad-members">
+      <li>
+      {% for person in persons %}
       <section class="person-card-info">
         <button type="button">🗙</button>
         <button type="button">🩷</button>
@@ -67,6 +70,9 @@
         <button type="submit">Send</button>
         </form>
     </section>
+    {% endfor %}
+    </li>
+  </ul>
   </main>
 
     <footer>
