@@ -51,6 +51,69 @@ app.get('/', async function (request, response) {
   })
 })
 
+app.get('/aflopend-alfabetische-volgorde', async function (request, response) {
+
+  //  NIEUW: haal het gekozen dier op uit de URL
+  const animal = request.query.animal
+
+  // Haal alle personen op
+  const params = {
+    // Sorteer op naam A-Z
+    'sort': '-name',
+
+    // Velden
+    'fields': '*,squads.*',
+
+    // Filters voor tribe en cohort
+    'filter[squads][squad_id][tribe][name]': 'FDND Jaar 1',
+    'filter[squads][squad_id][cohort]': '2526'
+  }
+
+  const personResponse = await fetch(
+    'https://fdnd.directus.app/items/person/?' + new URLSearchParams(params)
+  )
+
+  const personResponseJSON = await personResponse.json()
+
+  response.render('index.liquid', {
+    persons: personResponseJSON.data
+  })
+})
+
+  
+app.get('/oplopend-alfabetische-volgorde', async function (request, response) {
+
+  // Haal alle personen uit de WHOIS API op, van dit jaar, gesorteerd op naam
+  const params = {
+    // Sorteer op naam Z-A
+    'sort': 'name',
+
+    // Geef aan welke data je per persoon wil terugkrijgen
+    'fields': '*,squads.*',
+
+    // Combineer meerdere filters
+    'filter[squads][squad_id][tribe][name]': 'FDND Jaar 1',
+
+    // Filter cohort
+    'filter[squads][squad_id][cohort]': '2526'
+  }
+
+  const personResponse = await fetch(
+    'https://fdnd.directus.app/items/person/?' + new URLSearchParams(params)
+  )
+
+  // JSON ophalen
+  const personResponseJSON = await personResponse.json()
+
+  // Render pagina
+  response.render('index.liquid', {
+    persons: personResponseJSON.data,
+    squads: squadResponseJSON.data
+  })
+
+})
+
+
 app.post('/', async function (request, response) {
 
   // Stuur een POST request naar de messages tabel
